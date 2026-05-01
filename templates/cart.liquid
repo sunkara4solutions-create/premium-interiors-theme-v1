@@ -1,0 +1,51 @@
+<div class="cart-page">
+  <div class="collection-header">
+    <div class="section-label">Your Order</div>
+    <h1 class="section-title">Shopping Cart</h1>
+  </div>
+
+  {% if cart.item_count == 0 %}
+    <div style="text-align:center; padding:4rem; color:var(--muted);">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:2rem; margin-bottom:1rem;">Your cart is empty</p>
+      <a href="/collections/all" class="btn-primary">Browse Panels</a>
+    </div>
+  {% else %}
+    {% form 'cart', cart %}
+      <div class="cart-layout">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item">
+              {% if item.image %}
+                <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title | escape }}" class="cart-item-img" />
+              {% endif %}
+              <div class="cart-item-details">
+                <div class="product-name" style="font-size:1.1rem;">{{ item.product.title }}</div>
+                {% unless item.variant.title == 'Default Title' %}
+                  <div class="product-desc">{{ item.variant.title }}</div>
+                {% endunless %}
+                <div class="cart-item-price">{{ item.price | money }}</div>
+              </div>
+              <div class="cart-item-qty">
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="cart-qty-input" />
+              </div>
+              <div class="cart-item-total">{{ item.line_price | money }}</div>
+              <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-remove">✕</a>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="cart-summary">
+          <div class="cart-summary-title">Order Summary</div>
+          <div class="cart-row"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+          <div class="cart-row muted"><span>Shipping</span><span>Calculated at checkout</span></div>
+          <div class="cart-divider"></div>
+          <div class="cart-row total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+          <button type="submit" name="checkout" class="btn-primary" style="width:100%; margin-top:1.5rem; text-align:center; display:block;">
+            Proceed to Checkout
+          </button>
+          <a href="/collections/all" class="btn-ghost" style="display:block; text-align:center; margin-top:1rem;">Continue Shopping</a>
+        </div>
+      </div>
+    {% endform %}
+  {% endif %}
+</div>

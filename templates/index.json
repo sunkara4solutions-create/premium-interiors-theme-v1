@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "hero": {
+      "type": "homepage-hero",
+      "settings": {
+        "heading": "Transform Your Walls Into Art",
+        "subheading": "Premium acoustic wood slat panels crafted for those who demand both beauty and function. Elegance in every grain.",
+        "button_text": "Shop Collection",
+        "button_url": "/collections/all",
+        "secondary_button_text": "How It Works",
+        "secondary_button_url": "#process"
+      }
+    },
+    "marquee": {
+      "type": "marquee-strip",
+      "settings": {}
+    },
+    "intro": {
+      "type": "homepage-intro",
+      "settings": {
+        "label": "About Our Panels",
+        "heading": "Crafted for the Discerning Eye",
+        "body": "Our acoustic wood slat panels are engineered to reduce echo and noise while bringing warmth, depth, and architectural character to any room. Each panel ships fully assembled, ready to mount in minutes — no contractor required.\n\nAvailable in Black Oak and Natural Walnut finishes, designed to complement modern, industrial, and transitional interiors alike."
+      }
+    },
+    "products": {
+      "type": "homepage-products",
+      "settings": {
+        "heading": "Shop Panels",
+        "label": "Our Collection",
+        "products_count": 4
+      }
+    },
+    "features": {
+      "type": "homepage-features",
+      "settings": {
+        "label": "Why Premium Interiors",
+        "heading": "Beauty That Performs"
+      }
+    },
+    "process": {
+      "type": "homepage-process",
+      "settings": {
+        "label": "How It Works",
+        "heading": "From Order to Statement Wall in 4 Simple Steps"
+      }
+    },
+    "testimonials": {
+      "type": "homepage-testimonials",
+      "settings": {
+        "label": "Customer Reviews",
+        "heading": "What Our Clients Say"
+      }
+    },
+    "cta": {
+      "type": "homepage-cta",
+      "settings": {
+        "label": "Limited Time",
+        "heading": "All Panels 25% Off While Stock Lasts",
+        "subtext": "Don't miss your chance to elevate your space at our best price of the year. Free shipping included.",
+        "button_text": "Shop the Sale",
+        "button_url": "/collections/all"
+      }
+    },
+    "email": {
+      "type": "email-signup",
+      "settings": {
+        "heading": "Join Our List",
+        "subtext": "Early access to new finishes & exclusive deals"
+      }
+    }
+  },
+  "order": ["hero", "marquee", "intro", "products", "features", "process", "testimonials", "cta", "email"]
+}

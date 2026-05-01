@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ page_description | escape }}" />
+  <title>{{ page_title }} | {{ shop.name }}</title>
+
+  {{ content_for_header }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" id="site-nav">
+    <a href="/" class="nav-logo">{{ shop.name | split: ' ' | first }} <span>&</span> {{ shop.name | split: ' ' | last }}</a>
+
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/all">Shop</a></li>
+      <li><a href="/pages/contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="/cart" class="nav-cart">
+        Cart
+        <span class="cart-count" id="cart-count">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu" id="nav-mobile-menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/all">Shop All</a></li>
+      <li><a href="/pages/contact">Contact</a></li>
+      <li><a href="/cart">Cart ({{ cart.item_count }})</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand">{{ shop.name | split: ' ' | first }} <span>&</span> {{ shop.name | split: ' ' | last }}</div>
+        <p class="footer-tagline">Luxury acoustic wood slat panels for the modern home. Beautiful design, real acoustic performance.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Pinterest">PT</a>
+          <a href="#" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="/collections/all">All Products</a></li>
+          {% for collection in collections %}
+            <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="/pages/contact">Contact Us</a></li>
+          <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/policies/shipping-policy">Shipping Info</a></li>
+          <li><a href="/policies/refund-policy">Returns</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="/pages/about">About Us</a></li>
+          <li><a href="/pages/faq">FAQ</a></li>
+          <li><a href="/blogs/news">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <p class="footer-legal"><a href="/policies/privacy-policy">Privacy</a> · Powered by Shopify</p>
+    </div>
+  </footer>
+
+  {{ 'theme.js' | asset_url | script_tag }}
+</body>
+</html>

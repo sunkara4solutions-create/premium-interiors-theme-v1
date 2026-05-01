@@ -1,0 +1,50 @@
+<section class="testimonials">
+  <div class="section-label">{{ section.settings.label }}</div>
+  <h2 class="section-title">{{ section.settings.heading }}</h2>
+  <div class="testi-grid">
+    {% for block in section.blocks %}
+      <div class="testi-card" {{ block.shopify_attributes }}>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"{{ block.settings.quote }}"</p>
+        <div class="testi-author">— {{ block.settings.author }}</div>
+      </div>
+    {% else %}
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"These panels completely transformed my home office. The walnut finish looks even better in person than the photos. Installation was genuinely easy."</p>
+        <div class="testi-author">— Marcus T., Home Studio</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"I was skeptical about the acoustic difference but it's real — my calls are much cleaner and the room actually feels quieter. And they look stunning."</p>
+        <div class="testi-author">— Priya R., Remote Worker</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Ordered the black panels for my podcast room. Got them in 4 days. Added LED strips — honestly looks like something from a design magazine."</p>
+        <div class="testi-author">— Jason K., Podcast Host</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Customer Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Clients Say" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Author" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Testimonials" }]
+}
+{% endschema %}

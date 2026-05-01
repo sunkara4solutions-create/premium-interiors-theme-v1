@@ -1,0 +1,29 @@
+<section class="process" id="process">
+  <div style="text-align:center; margin-bottom: 1rem;">
+    <div class="section-label" style="display:inline-block">{{ section.settings.label }}</div>
+  </div>
+  <h2 class="section-title" style="text-align:center">{{ section.settings.heading }}</h2>
+
+  <div class="steps">
+    {% assign step_titles = "Choose Your Finish,We Ship to You,Mount in Minutes,Add LED & Enjoy" | split: "," %}
+    {% assign step_descs = "Select from Black Oak or Walnut Oak. Order as many panels as your wall requires.,Your panels are carefully packaged and delivered free within 3–5 business days.,Follow our simple guide. No contractor no special tools. Just a drill and level.,Drop LED strips into the built-in channels for an optional ambient glow effect." | split: "," %}
+    {% for i in (0..3) %}
+      <div class="step">
+        <div class="step-num">0{{ i | plus: 1 }}</div>
+        <div class="step-title">{{ step_titles[i] }}</div>
+        <p class="step-desc">{{ step_descs[i] }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Process",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "How It Works" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From Order to Statement Wall in 4 Simple Steps" }
+  ],
+  "presets": [{ "name": "Homepage Process" }]
+}
+{% endschema %}

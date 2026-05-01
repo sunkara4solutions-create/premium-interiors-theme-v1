@@ -1,0 +1,145 @@
+<div class="product-page">
+  <div class="product-page-inner">
+
+    <!-- IMAGES -->
+    <div class="product-gallery">
+      <div class="product-gallery-main" id="gallery-main">
+        {% if product.featured_image %}
+          <img
+            src="{{ product.featured_image | img_url: '900x' }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            id="main-product-image"
+            class="gallery-main-img"
+          />
+        {% else %}
+          <div class="gallery-placeholder">
+            <div class="intro-slats">{% for i in (1..16) %}<div class="slat"></div>{% endfor %}</div>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if product.images.size > 1 %}
+        <div class="product-gallery-thumbs">
+          {% for image in product.images %}
+            <img
+              src="{{ image | img_url: '200x' }}"
+              alt="{{ image.alt | escape }}"
+              class="gallery-thumb {% if forloop.first %}active{% endif %}"
+              data-src="{{ image | img_url: '900x' }}"
+              onclick="setMainImage(this)"
+            />
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info-col">
+      <div class="section-label" style="margin-bottom:0.5rem">{{ product.type | default: 'Acoustic Wood Panel' }}</div>
+      <h1 class="product-title">{{ product.title }}</h1>
+
+      <div class="product-price-display">
+        {% if product.compare_at_price > product.price %}
+          <span class="price-sale large">{{ product.price | money }}</span>
+          <span class="price-original large">{{ product.compare_at_price | money }}</span>
+          {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+          <span class="price-tag">{{ savings }}% Off</span>
+        {% else %}
+          <span class="price-sale large">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+
+      {% if product.description != blank %}
+        <div class="product-description">{{ product.description }}</div>
+      {% endif %}
+
+      {% form 'product', product, id: 'product-form' %}
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div class="product-option">
+              <label class="option-label">{{ option.name }}</label>
+              <div class="option-values">
+                {% for value in option.values %}
+                  <button
+                    type="button"
+                    class="option-btn {% if option.selected_value == value %}active{% endif %}"
+                    data-option-index="{{ forloop.parentloop.index0 }}"
+                    data-value="{{ value | escape }}"
+                    onclick="selectOption(this)"
+                  >
+                    {{ value }}
+                  </button>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}" />
+
+        <div class="product-qty-row">
+          <div class="qty-control">
+            <button type="button" onclick="changeQty(-1)">−</button>
+            <input type="number" name="quantity" id="qty-input" value="1" min="1" />
+            <button type="button" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          name="add"
+          class="btn-primary add-to-cart-btn"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {% if product.available %}Add to Cart{% else %}Sold Out{% endif %}
+        </button>
+
+      {% endform %}
+
+      <div class="product-meta-list">
+        <div class="meta-item">✓ Free shipping on all US orders</div>
+        <div class="meta-item">✓ 30-day hassle-free returns</div>
+        <div class="meta-item">✓ LED channel routing included</div>
+        <div class="meta-item">✓ Easy DIY install — under 30 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setMainImage(thumb) {
+    document.getElementById('main-product-image').src = thumb.dataset.src;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+
+  function changeQty(delta) {
+    const input = document.getElementById('qty-input');
+    const val = Math.max(1, parseInt(input.value) + delta);
+    input.value = val;
+  }
+
+  const variants = {{ product.variants | json }};
+
+  function selectOption(btn) {
+    btn.closest('.option-values').querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    matchVariant();
+  }
+
+  function matchVariant() {
+    const selected = Array.from(document.querySelectorAll('.option-btn.active')).map(b => b.dataset.value);
+    const match = variants.find(v => v.options.every((o, i) => o === selected[i]));
+    if (match) {
+      document.getElementById('variant-id').value = match.id;
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [],
+  "presets": [{ "name": "Product Main" }]
+}
+{% endschema %}

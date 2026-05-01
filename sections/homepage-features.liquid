@@ -1,0 +1,31 @@
+<section class="why" id="why">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">{{ section.settings.label }}</div>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="why-features">
+      {% assign icons = "🎵,🌿,💡,🔧,📦,🛡️" | split: "," %}
+      {% assign titles = "Acoustic Performance,Premium Wood Finish,LED Light Ready,Easy DIY Install,Ships Fast & Free,Satisfaction Guarantee" | split: "," %}
+      {% assign descs = "Felt backing absorbs mid-range frequencies reducing echo in home offices studios and living rooms.,UV-stable moisture-resistant veneers deliver rich natural grain indistinguishable from solid wood.,Routed channels built into every panel accept LED strip lights for an instant architectural glow effect.,Pre-drilled tongue-and-groove ready. One person can complete a full accent wall in under an hour.,Orders ship within 2 business days. Flat-rate free shipping to all US destinations.,30-day returns no questions asked. We stand behind every panel we ship." | split: "," %}
+      {% for i in (0..5) %}
+        <div class="feature-item">
+          <span class="feature-icon">{{ icons[i] }}</span>
+          <div class="feature-title">{{ titles[i] }}</div>
+          <p class="feature-desc">{{ descs[i] }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Features",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Why Premium Interiors" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Beauty That Performs" }
+  ],
+  "presets": [{ "name": "Homepage Features" }]
+}
+{% endschema %}

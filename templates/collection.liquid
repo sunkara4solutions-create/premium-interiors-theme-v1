@@ -1,0 +1,67 @@
+<div class="collection-page">
+  <div class="collection-header">
+    <div class="section-label">Our Collection</div>
+    <h1 class="section-title">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <p class="collection-desc">{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="product-grid collection-grid">
+    {% for product in collection.products %}
+      <div class="product-card">
+        <a href="{{ product.url }}" class="product-card-link">
+          <div class="product-visual">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | img_url: '600x' }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                class="product-img"
+                loading="lazy"
+              />
+            {% else %}
+              <div class="product-visual-placeholder">
+                <div class="wood-slats-overlay">{% for i in (1..9) %}<div class="mini-slat"></div>{% endfor %}</div>
+              </div>
+            {% endif %}
+            <div class="product-led"></div>
+            <div class="product-overlay"></div>
+            <div class="product-hover-reveal">
+              <span class="quick-view">View Product</span>
+            </div>
+          </div>
+        </a>
+        <div class="product-info">
+          <div class="section-label" style="margin-bottom:0.4rem">{{ product.type }}</div>
+          <div class="product-name">{{ product.title }}</div>
+          <div class="product-price-row">
+            <div>
+              {% if product.compare_at_price > product.price %}
+                <span class="price-sale">{{ product.price | money }}</span>
+                <span class="price-original">{{ product.compare_at_price | money }}</span>
+              {% else %}
+                <span class="price-sale">{{ product.price | money }}</span>
+              {% endif %}
+            </div>
+            {% if product.compare_at_price > product.price %}
+              {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+              <span class="price-tag">{{ savings }}% Off</span>
+            {% endif %}
+          </div>
+          <a href="{{ product.url }}" class="btn-primary" style="margin-top:1rem; display:inline-block; font-size:0.68rem;">Shop Now</a>
+        </div>
+      </div>
+    {% else %}
+      <div style="grid-column:1/-1; text-align:center; padding:4rem; color:var(--muted);">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; margin-bottom:1rem;">No products yet</p>
+        <p style="font-size:0.8rem;">Add products in your Shopify admin to see them here.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    <div class="pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  {% endif %}
+</div>

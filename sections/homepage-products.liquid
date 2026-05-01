@@ -1,0 +1,82 @@
+<section class="products" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-label">{{ section.settings.label }}</div>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+    <a href="/collections/all" class="products-link">View All Products →</a>
+  </div>
+
+  <div class="product-grid">
+    {% assign featured = collections.all.products | limit: section.settings.products_count %}
+    {% for product in featured %}
+      <div class="product-card">
+        <a href="{{ product.url }}" class="product-card-link">
+          <div class="product-visual">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | img_url: '600x' }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                class="product-img"
+                loading="lazy"
+              />
+            {% else %}
+              <div class="product-visual-placeholder wood-{{ forloop.index }}">
+                <div class="wood-slats-overlay">
+                  {% for i in (1..9) %}<div class="mini-slat"></div>{% endfor %}
+                </div>
+              </div>
+            {% endif %}
+            <div class="product-led"></div>
+            <div class="product-overlay"></div>
+            <div class="product-hover-reveal">
+              <span class="quick-view">View Product</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="product-info">
+          <div class="section-label" style="margin-bottom:0.4rem">
+            {{ product.type | default: 'Wood Panel' }}
+          </div>
+          <div class="product-name">{{ product.title }}</div>
+          <div class="product-desc">{{ product.metafields.custom.short_desc | default: product.variants.first.title }}</div>
+          <div class="product-price-row">
+            <div>
+              {% if product.compare_at_price > product.price %}
+                <span class="price-sale">{{ product.price | money }}</span>
+                <span class="price-original">{{ product.compare_at_price | money }}</span>
+              {% else %}
+                <span class="price-sale">{{ product.price | money }}</span>
+              {% endif %}
+            </div>
+            {% if product.compare_at_price > product.price %}
+              {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+              <span class="price-tag">{{ savings }}% Off</span>
+            {% endif %}
+          </div>
+          <a href="{{ product.url }}" class="btn-primary" style="margin-top:1rem; display:inline-block; font-size:0.68rem;">
+            Shop Now
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div style="grid-column: 1/-1; text-align:center; padding: 4rem; color: var(--muted);">
+        <p style="font-family: 'Cormorant Garamond', serif; font-size:1.5rem; margin-bottom:1rem;">No products yet</p>
+        <p style="font-size:0.8rem;">Add products in your Shopify admin to display them here.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Products",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Section Label", "default": "Our Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop Panels" },
+    { "type": "range", "id": "products_count", "min": 2, "max": 8, "step": 1, "label": "Number of Products", "default": 4 }
+  ],
+  "presets": [{ "name": "Homepage Products" }]
+}
+{% endschema %}

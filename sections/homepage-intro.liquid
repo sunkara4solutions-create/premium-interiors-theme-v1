@@ -38,6 +38,29 @@
         <div class="stat-label">Customer Rating</div>
       </div>
     </div>
+
+    <!-- FINISHES SECTION -->
+    <div class="finishes-block">
+      <div class="finishes-desc">{{ section.settings.finishes_desc }}</div>
+      <div class="finish-swatches">
+        <div class="finish-item">
+          <div class="finish-swatch" style="background: linear-gradient(135deg, #0d0d0d 0%, #1c1c1c 50%, #0d0d0d 100%);"></div>
+          <span class="finish-name">Black Oak</span>
+        </div>
+        <div class="finish-item">
+          <div class="finish-swatch" style="background: linear-gradient(135deg, #8b5e3c 0%, #c49a6a 50%, #8b5e3c 100%);"></div>
+          <span class="finish-name">Natural Walnut</span>
+        </div>
+        <div class="finish-item">
+          <div class="finish-swatch" style="background: linear-gradient(135deg, #c4913a 0%, #dab060 50%, #c4913a 100%);"></div>
+          <span class="finish-name">Warm Oak</span>
+        </div>
+        <div class="finish-item">
+          <div class="finish-swatch" style="background: linear-gradient(135deg, #3d3028 0%, #5a4838 50%, #3d3028 100%);"></div>
+          <span class="finish-name">Charcoal</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -48,7 +71,8 @@
     { "type": "image_picker", "id": "intro_image", "label": "Panel Image (optional)" },
     { "type": "text", "id": "label", "label": "Label", "default": "About Our Panels" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Crafted for the Discerning Eye" },
-    { "type": "textarea", "id": "body", "label": "Body Text" }
+    { "type": "textarea", "id": "body", "label": "Body Text" },
+    { "type": "textarea", "id": "finishes_desc", "label": "Finishes Description", "default": "Available in Black Oak, Natural Walnut, Warm Oak, and Charcoal finishes — designed to complement modern, industrial, and transitional interiors alike." }
   ],
   "presets": [{ "name": "Homepage Intro" }]
 }

@@ -1,10 +1,44 @@
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-slats"></div>
-  <div class="hero-glow"></div>
 
   {% if section.settings.hero_image %}
+    <div class="hero-bg"></div>
+    <div class="hero-slats"></div>
+    <div class="hero-glow"></div>
     <div class="hero-image" style="background-image: url('{{ section.settings.hero_image | img_url: '2000x' }}');"></div>
+  {% else %}
+    <!-- CSS Living Room Scene -->
+    <div class="hero-room-scene">
+      <div class="room-ambient"></div>
+      <div class="room-accent-wall">
+        <div class="room-panel-grid">
+          {% for i in (1..22) %}<div class="r-slat"></div>{% endfor %}
+        </div>
+        <div class="room-led-glow"></div>
+        <div class="room-panel-shadow"></div>
+      </div>
+      <div class="room-flooring"></div>
+      <div class="room-furniture">
+        <div class="rf-sofa">
+          <div class="rf-backrest"></div>
+          <div class="rf-seat"></div>
+          <div class="rf-arm rf-arm-l"></div>
+          <div class="rf-arm rf-arm-r"></div>
+          <div class="rf-cushion"></div>
+          <div class="rf-cushion rf-cushion-2"></div>
+        </div>
+        <div class="rf-table"></div>
+        <div class="rf-plant">
+          <div class="rf-plant-stem"></div>
+          <div class="rf-plant-leaf rf-leaf-1"></div>
+          <div class="rf-plant-leaf rf-leaf-2"></div>
+          <div class="rf-plant-leaf rf-leaf-3"></div>
+          <div class="rf-plant-pot"></div>
+        </div>
+        <div class="rf-rug"></div>
+      </div>
+      <div class="room-text-shadow"></div>
+    </div>
+    <div class="hero-glow"></div>
   {% endif %}
 
   <div class="hero-content">
@@ -30,7 +64,7 @@
 {
   "name": "Homepage Hero",
   "settings": [
-    { "type": "image_picker", "id": "hero_image", "label": "Background Image" },
+    { "type": "image_picker", "id": "hero_image", "label": "Background Image (optional — replaces room illustration)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "Arizona's Wood Panel Experts" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Premium Wood Wall Panels\nfor Arizona Homes" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Local pickup in Peoria. Fast delivery across the Phoenix metro. Transform any room with handcrafted acoustic wood slat panels." },

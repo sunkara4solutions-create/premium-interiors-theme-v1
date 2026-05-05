@@ -49,9 +49,55 @@
         {% endif %}
       </div>
 
+      <!-- LOCAL PICKUP BANNER -->
+      <div class="local-pickup-banner">
+        <span class="local-pickup-icon">📍</span>
+        <div class="local-pickup-text">
+          <strong>Local Pickup &amp; Phoenix Metro Delivery</strong>
+          Pickup available in Peoria, AZ &nbsp;·&nbsp; Local delivery across the Phoenix area &nbsp;·&nbsp; Questions? Call or text <a href="tel:8328560777" style="color:#dbb458">832-856-0777</a>
+        </div>
+      </div>
+
       {% if product.description != blank %}
         <div class="product-description">{{ product.description }}</div>
       {% endif %}
+
+      <!-- PANEL SPECS -->
+      <div class="product-specs">
+        <div class="product-specs-title">Panel Specifications</div>
+        <div class="spec-row">
+          <span class="spec-label">Panel Size</span>
+          <span class="spec-value">{{ product.metafields.specs.size | default: 'See product details' }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Coverage Area</span>
+          <span class="spec-value">{{ product.metafields.specs.coverage | default: 'See product details' }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Thickness</span>
+          <span class="spec-value">{{ product.metafields.specs.thickness | default: 'See product details' }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Material</span>
+          <span class="spec-value">{{ product.metafields.specs.material | default: product.type | default: 'Acoustic Wood Slat' }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Finish</span>
+          <span class="spec-value">{{ product.metafields.specs.finish | default: 'Natural Wood Veneer' }}</span>
+        </div>
+      </div>
+
+      <!-- INSTALLATION INFO -->
+      <div class="install-info">
+        <div class="install-info-title">Installation</div>
+        <ul>
+          <li>Adhesive, nail, or screw mount — works on any flat wall</li>
+          <li>Tongue-and-groove system — no visible fasteners</li>
+          <li>Panels can be cut to size with a standard saw</li>
+          <li>Suitable for drywall, concrete, and wood stud walls</li>
+          <li>One person can install a full accent wall in under 30 min</li>
+        </ul>
+      </div>
 
       {% form 'product', product, id: 'product-form' %}
         {% unless product.has_only_default_variant %}
@@ -97,10 +143,11 @@
       {% endform %}
 
       <div class="product-meta-list">
-        <div class="meta-item">✓ Free shipping on all US orders</div>
-        <div class="meta-item">✓ 30-day hassle-free returns</div>
+        <div class="meta-item">✓ Local pickup in Peoria, AZ</div>
+        <div class="meta-item">✓ Phoenix metro delivery available</div>
         <div class="meta-item">✓ LED channel routing included</div>
-        <div class="meta-item">✓ Easy DIY install — under 30 min</div>
+        <div class="meta-item">✓ 30-day hassle-free returns</div>
+        <div class="meta-item">✓ Call or text us: <a href="tel:8328560777" style="color:var(--gold)">832-856-0777</a></div>
       </div>
     </div>
   </div>

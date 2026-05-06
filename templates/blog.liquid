@@ -1,0 +1,7 @@
+<div style="max-width:800px;margin:60px auto;padding:0 20px;">
+  {% for article in blog.articles %}
+    <div style="margin-bottom:30px;">
+      <a href="{{ article.url }}"><h2>{{ article.title }}</h2></a>
+    </div>
+  {% endfor %}
+</div>
